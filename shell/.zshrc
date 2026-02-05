@@ -5,7 +5,7 @@ if [ -f '/Users/alejandrodelacruz/google-cloud-sdk/path.zsh.inc' ]; then . '/Use
 if [ -f '/Users/alejandrodelacruz/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/alejandrodelacruz/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Paths
-export PATH="$PATH:~/.local/bin"
+export PATH=$PATH:~/.local/bin
 export PATH=$PATH:~/bin
 export PATH=$PATH:~/Work/personal/dotfiles/scripts
 
