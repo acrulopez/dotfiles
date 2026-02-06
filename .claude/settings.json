@@ -1,0 +1,13 @@
+{
+    "statusLine": {
+        "type": "command",
+        "command": "source ~/Work/personal/dotfiles/.claude/scripts/context-bar.sh"
+    },
+    "attribution": {
+        "commit": "",
+        "pr": ""
+    },
+    "env": {
+        "ENABLE_TOOL_SEARCH": "true"
+    }
+}
