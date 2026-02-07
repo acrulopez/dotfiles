@@ -1,7 +1,8 @@
 ---
-description: Developing dbt models
-alwaysApply: false
+name: dbt
+description: dbt model development — SQL style guide, BigQuery optimization, naming conventions, yaml standards
 ---
+
 # dbt & SQL Standards
 
 ## SQL Style Guide (Strict)
