@@ -19,10 +19,6 @@ gamend:
     git commit --amend --no-edit
     git push --force-with-lease
 
-# Format json
-format-json json:
-    echo {{json}} | jq .
-
 # Deploy Claude Code config to ~/.claude (with diff approval per item)
 claude-deploy:
     #!/usr/bin/env bash
@@ -50,3 +46,8 @@ claude-deploy:
             echo "⊘ $item skipped"
         fi
     done
+
+# Pull main branch
+mainpull:
+    git checkout main
+    git pull
