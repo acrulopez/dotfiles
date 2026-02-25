@@ -1,19 +1,33 @@
 {
-    "statusLine": {
-        "type": "command",
-        "command": "source ~/Work/personal/dotfiles/.claude/scripts/context-bar.sh"
+    "env": {
+      "ENABLE_TOOL_SEARCH": "true",
+      "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
     },
     "attribution": {
-        "commit": "",
-        "pr": ""
-    },
-    "env": {
-        "ENABLE_TOOL_SEARCH": "true",
-        "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+      "commit": "",
+      "pr": ""
     },
     "permissions": {
-      "allow": [],
-      "defaultMode": "plan",
-      "plansDirectory": ".claude/plans/"
-    }
-}
+      "allow": []
+    },
+    "model": "haiku",
+    "statusLine": {
+      "type": "command",
+      "command": "source ~/Work/personal/dotfiles/.claude/scripts/context-bar.sh"
+    },
+    "hooks": {
+          "SessionEnd": [
+              {
+                  "hooks": [
+                      {
+                          "type": "command",
+                          "command": "bash ~/Work/personal/dotfiles/.claude/scripts/add-date-to-plans.sh"
+                      }
+                  ]
+              }
+          ]
+      },
+    "plansDirectory": ".claude/plans/",
+    "skipDangerousModePermissionPrompt": true,
+    "defaultMode": "plan"
+  }

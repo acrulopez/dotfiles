@@ -30,7 +30,7 @@ claude-deploy:
     set -euo pipefail
     SRC=~/Work/personal/dotfiles/.claude
     DST=~/.claude
-    for item in settings.json commands skills scripts; do
+    for item in settings.json CLAUDE.md commands scripts; do
         echo ""
         echo "===== $item ====="
         if [ -e "$DST/$item" ]; then
