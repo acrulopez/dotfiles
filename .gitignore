@@ -10,4 +10,5 @@ wheels/
 .venv
 export-secrets.sh
 
-.cursor/skills/sow-creator
+.claude/skills/sow-creator/
+.claude/plans
