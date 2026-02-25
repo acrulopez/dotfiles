@@ -2,11 +2,6 @@
 default:
     @just --justfile ~/Work/personal/dotfiles/just/global.justfile --list
 
-# Google Cloud Auth + Gdrive access
-gauth:
-    gcloud auth application-default login
-    gcloud auth login --enable-gdrive-access --update-adc
-
 # Git add + commit (with message) + push
 gpush message:
     git add .
@@ -18,6 +13,16 @@ gamend:
     git add .
     git commit --amend --no-edit
     git push --force-with-lease
+
+# Pull main branch
+mainpull:
+    git checkout main
+    git pull
+
+# Google Cloud Auth + Gdrive access
+gauth:
+    gcloud auth application-default login
+    gcloud auth login --enable-gdrive-access --update-adc
 
 # Deploy Claude Code config to ~/.claude (with diff approval per item)
 claude-deploy:
@@ -46,8 +51,3 @@ claude-deploy:
             echo "⊘ $item skipped"
         fi
     done
-
-# Pull main branch
-mainpull:
-    git checkout main
-    git pull
