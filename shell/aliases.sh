@@ -3,3 +3,4 @@ alias k=kubectl
 alias gp="git pull"
 alias dbtf="~/.local/bin/dbt"
 alias c=claude
+alias cds="claude --dangerously-skip-permissions"

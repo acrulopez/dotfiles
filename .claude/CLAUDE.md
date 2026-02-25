@@ -1,5 +1,3 @@
-## General
-- Do not propose implementation plans unless explicitly asked for.
 ## Plan Mode
-- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
+- Do not propose timelines in plans.
 - At the end of each plan, give me a list of unresolved questions to answer, if any.
