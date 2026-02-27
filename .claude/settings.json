@@ -28,6 +28,5 @@
           ]
       },
     "plansDirectory": ".claude/plans/",
-    "skipDangerousModePermissionPrompt": true,
     "defaultMode": "plan"
   }
