@@ -1,22 +1,30 @@
-# Testing
+# General Rules
 
-## Principles
+## Key Rules
 
-- Every model **must** have its PK tested for `unique` + `not_null`
+- Every model must have a primary key. Use `{{ dbt_utils.generate_surrogate_key([...]) }}` when no natural key exists.
+- Staging is the only layer where renaming and casting of raw fields is allowed.
+- All columns on different tables relating to the same concept must have the same name.
+- Do not define `materialization` or `tags` in the model file unless the value differs from the project default (`dbt_project.yml`).
+
+## Partitioning & Clustering in BigQuery
+
+| Table Size | Strategy |
+|------------|----------|
+| **< 1 GB** | Do nothing. BigQuery is fast enough out of the box. |
+| **1–30 GB** | Cluster on heavily filtered columns, such as the main date. |
+| **> 30 GB** (with >1–10 GB per time unit) | Partition by time, and cluster by most-used filter columns. |
+
+## Testing
+
+### Principles
+
+- Every model must have its PK tested for `unique` + `not_null`
 - Test strategically — don't overtest pass-through columns validated upstream
 - Use `severity: warn` for non-critical tests
-- Test **extensively** on datamart models (exposed to end users)
+- Test extensively on datamart models (exposed to end users)
 
-## Tests by Layer
-
-| Layer | Required | Recommended |
-|-------|----------|-------------|
-| **Sources** | Source freshness (`loaded_at` field) | `not_null` on primary identifier |
-| **Staging** | `unique` + `not_null` on PK | `not_null` on critical business columns; `accepted_values` for status/type fields |
-| **Intermediate** | `unique` + `not_null` on PK (especially when re-graining) | `accepted_values` on derived fields |
-| **Datamart** | `unique` + `not_null` on PK; `relationships` on FKs; `accepted_values` on business-critical fields | `not_null` on business fields; `unit tests` for complex logic |
-
-## Tests by Column Pattern
+### Tests by Column Pattern
 
 | Column Pattern | Detected As | Tests |
 |----------------|-------------|-------|
@@ -29,7 +37,7 @@
 | `*_count` | Count | `dbt_utils.accepted_range: {min_value: 0}`; `not_null` |
 | `*_type` / `*_category` / `*_status` / `*_group` | Categorical | `accepted_values` with explicit list |
 
-## Test Severity
+### Test Severity
 
 | Severity | When |
 |----------|------|
@@ -37,16 +45,16 @@
 | `warn` | Accepted values on low-impact fields, optional relationship tests |
 | `warn` + `error_if` | Volume anomalies (e.g., `error_if: ">1000"`) |
 
-## Useful Packages
+### Useful Packages
 
 - **dbt core**: `unique`, `not_null`, `accepted_values`, `relationships`
-- **dbt_utils**: `generate_surrogate_key`, `expression_is_true`, `recency`, `at_least_one`, `unique_combination_of_columns`, `accepted_range`, `equal_rowcount`, `not_null_proportion`
+- **dbt_utils**: `expression_is_true`, `recency`, `at_least_one`, `unique_combination_of_columns`, `accepted_range`, `equal_rowcount`, `not_null_proportion`
 - **dbt_expectations**: `expect_column_values_to_be_between`, `expect_table_row_count_to_be_between`
 - **elementary**: `volume_anomalies`
 
-## Unit Tests (dbt Core 1.8+)
+### Unit Tests
 
-Use only for complex business logic (pricing, conditional categorization, incremental logic). Do not unit test simple select/rename. Run in dev/CI only, not production.
+Models with very complex logic must be unit tested. Simple select/rename models do not need to be unit tested. Run in dev/CI only, not production.
 
 ```yaml
 unit_tests:
