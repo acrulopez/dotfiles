@@ -6,6 +6,7 @@
 - Staging is the only layer where renaming and casting of raw fields is allowed.
 - All columns on different tables relating to the same concept must have the same name.
 - Do not define `materialization` or `tags` in the model file unless the value differs from the project default (`dbt_project.yml`).
+- Every .sql model file must have a corresponding .yml file with the same name.
 
 ## Partitioning & Clustering in BigQuery
 
